@@ -7,4 +7,4 @@ def test_add_zero():
     assert add(0,0) == 0
 
 def test_add_negative_numbers():
-    assert add(-1,-2) == -4
+    assert add(-1,-2) == -3
