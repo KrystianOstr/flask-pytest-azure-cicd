@@ -1,0 +1,19 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return "Hello, DevOps!"
+
+@app.route('/janusz')
+def hello_janusz():
+    return "Hello, Janusz!"
+
+def add(a,b):
+    return a+b
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
