@@ -1,0 +1,1 @@
+[![build & test docker](https://github.com/KrystianOstr/flask-pytest-azure-cicd/actions/workflows/docker-test.yml/badge.svg)](https://github.com/KrystianOstr/flask-pytest-azure-cicd/actions/workflows/docker-test.yml)
