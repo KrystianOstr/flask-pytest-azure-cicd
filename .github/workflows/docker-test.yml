@@ -21,8 +21,12 @@ jobs:
         -   name: Run container in background
             run: |
                 docker run -d -p 5000:5000 --name testapp flask-ci-app
-                sleep 5
+                sleep 10
 
-        -   name: Test HTTP endpoint
+        -   name: Test HTTP /
             run: |
-                curl -f http://localhost:5000/janusz
+                  curl -f http://localhost:5000/ | grep "Hello, DevOps!"
+              
+        -   name: Test HTTP /janusz
+            run: |
+                  curl -f http://localhost:5000/janusz | grep "Hello, Janusz!"
