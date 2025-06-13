@@ -31,4 +31,4 @@ jobs:
     - name: Run container in background
       run: |
         docker run -d -p 80:80 --name testapp ghcr.io/krystianostr/flask-docker-azure-cicd:latest
-        sleep 1000
+        
