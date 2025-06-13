@@ -20,8 +20,11 @@ jobs:
 
         -   name: Run container in background
             run: |
-                docker run -d -p 5000:5000 --name testapp flask-ci-app
-                sleep 10
+              docker run -d -p 5000:5000 --name testapp flask-ci-app
+              sleep 10
+              docker ps -a
+              docker logs testapp
+          
 
         -   name: Test HTTP /
             run: |
