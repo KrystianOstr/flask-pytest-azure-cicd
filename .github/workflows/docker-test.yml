@@ -30,15 +30,11 @@ jobs:
 
     - name: Run container in background
       run: |
-        docker run -d -p 5000:5000 --name testapp ghcr.io/krystianostr/flask-pytest-azure-cicd:latest
+        docker run -d -p 80:80 --name testapp ghcr.io/krystianostr/flask-docker-azure-cicd:latest
         sleep 10
         docker ps -a
         docker logs testapp
-
+    
     - name: Test HTTP /
-      run: |
-        curl -f http://localhost:5000/ | grep "Hello, DevOps!"
-
-    - name: Test HTTP /janusz
-      run: |
-        curl -f http://localhost:5000/janusz | grep "Hello, Janusz!"
+      run: curl -f http://localhost:80/ | grep "Hello, DevOps!"
+    
