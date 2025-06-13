@@ -1,42 +1,44 @@
 name: build & test docker
 
 on:
-    push:
-        branches: [main]
+  push:
+    branches: [main]
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-        steps:
-        -   name: Checkout code
-            uses: actions/checkout@v3
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-        -   name: Set up Docker
-            uses: docker/setup-buildx-action@v3
-            with:
-                registry: ghcr.io
-                username: krystianostr
-                password: ${{secrets.GHCR_PAT}}
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
 
-        -   name: Build Docker image
-            run: docker build -t ghcr.io/krystianostr/flask-pytest-azure-cicd:latest .
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: krystianostr
+        password: ${{ secrets.GHCR_PAT }}
 
-        -   name: Push image to GHCR
-            run: docker push ghcr.io/krystianostr/flask-pytest-azure-cicd:latest
+    - name: Build Docker image
+      run: docker build -t ghcr.io/krystianostr/flask-pytest-azure-cicd:latest .
 
-        -   name: Run container in background
-            run: |
-              docker run -d -p 5000:5000 --name testapp flask-pytest-azure-cicd
-              sleep 10
-              docker ps -a
-              docker logs testapp
-          
+    - name: Push image to GHCR
+      run: docker push ghcr.io/krystianostr/flask-pytest-azure-cicd:latest
 
-        -   name: Test HTTP /
-            run: |
-                  curl -f http://localhost:5000/ | grep "Hello, DevOps!"
-              
-        -   name: Test HTTP /janusz
-            run: |
-                  curl -f http://localhost:5000/janusz | grep "Hello, Janusz!"
+    - name: Run container in background
+      run: |
+        docker run -d -p 5000:5000 --name testapp ghcr.io/krystianostr/flask-pytest-azure-cicd:latest
+        sleep 10
+        docker ps -a
+        docker logs testapp
+
+    - name: Test HTTP /
+      run: |
+        curl -f http://localhost:5000/ | grep "Hello, DevOps!"
+
+    - name: Test HTTP /janusz
+      run: |
+        curl -f http://localhost:5000/janusz | grep "Hello, Janusz!"
