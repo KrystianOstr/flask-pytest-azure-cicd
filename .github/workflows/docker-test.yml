@@ -14,9 +14,16 @@ jobs:
 
         -   name: Set up Docker
             uses: docker/setup-buildx-action@v3
+            with:
+                registry: ghcr.io
+                username: ${{github.actor}}
+                password: ${{secrets.GITHUB_TOKEN}}
 
         -   name: Build Docker image
-            run: docker build -t flask-ci-app .
+            run: docker build -t ghcr.io/krystianostr/flask-ci-app:latest .
+
+        -   name: Push image to GHCR
+            run: docker push ghcr.io/krystianostr/flask-ci-app:latest
 
         -   name: Run container in background
             run: |
