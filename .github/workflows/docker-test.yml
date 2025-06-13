@@ -20,14 +20,14 @@ jobs:
                 password: ${{secrets.GHCR_PAT}}
 
         -   name: Build Docker image
-            run: docker build -t ghcr.io/krystianostr/flask-ci-app:latest .
+            run: docker build -t ghcr.io/krystianostr/flask-pytest-azure-cicd:latest .
 
         -   name: Push image to GHCR
-            run: docker push ghcr.io/krystianostr/flask-ci-app:latest
+            run: docker push ghcr.io/krystianostr/flask-pytest-azure-cicd:latest
 
         -   name: Run container in background
             run: |
-              docker run -d -p 5000:5000 --name testapp flask-ci-app
+              docker run -d -p 5000:5000 --name testapp flask-pytest-azure-cicd
               sleep 10
               docker ps -a
               docker logs testapp
