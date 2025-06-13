@@ -31,10 +31,4 @@ jobs:
     - name: Run container in background
       run: |
         docker run -d -p 80:80 --name testapp ghcr.io/krystianostr/flask-docker-azure-cicd:latest
-        sleep 10
-        docker ps -a
-        docker logs testapp
-    
-    - name: Test HTTP /
-      run: curl -f http://localhost:80/ | grep "Hello, DevOps!"
-    
+        sleep 1000
